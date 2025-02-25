@@ -5,4 +5,19 @@ tasks:
     desc: "The default task" 
     cmds:
       - clear
+      - task: test-alpine
+
+  run:
+    cmds:
       - go run .
+
+  build:
+    cmds:
+      - CGO_ENABLED=0 go build .
+  
+  test-alpine:
+    deps:
+      - build
+    cmds:
+      - docker build -t test-alpine -f ./tests/alpine/Dockerfile .
+      - docker run -it --rm test-alpine mirctl

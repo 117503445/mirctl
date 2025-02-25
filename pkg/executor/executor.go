@@ -5,6 +5,9 @@ var executors = map[string]Executor{
 }
 
 type Executor interface {
+	// PreCheck checks if the executor could work
+	PreCheck() bool
+
 	Run() error
 }
 
