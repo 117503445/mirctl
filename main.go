@@ -12,7 +12,7 @@ func main() {
 	cfg.Load()
 
 	for _, repo := range cfg.Cfg.Repos {
-		log.Debug().Str("repo", repo).Send()
+		log.Info().Str("repo", repo).Send()
 		executor.Run(repo, cfg.Cfg.Mirrors[0])
 	}
 }

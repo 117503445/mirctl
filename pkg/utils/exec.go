@@ -5,7 +5,6 @@ import (
 	"os/exec"
 	"time"
 
-	"github.com/117503445/goutils"
 	"github.com/rs/zerolog/log"
 )
 
@@ -30,16 +29,13 @@ func RunCmdWithLog(cmd *exec.Cmd) (string, error) {
 		}
 	}
 
-	runId := goutils.UUID4()
-	logger := log.With().Str("runId", runId).Logger()
-
 	start := time.Now()
-	logger.Info().Str("cmd", cmd.String()).CallerSkipFrame(1).Send()
+	log.Info().Str("cmd", cmd.String()).CallerSkipFrame(1).Send()
 
 	outputBytes, err := cmd.CombinedOutput()
 	output := string(outputBytes)
 
-	logger.Info().Str("output", output).Err(err).Str("duration", formatDuration(time.Since(start))).CallerSkipFrame(1).Send()
+	log.Info().Str("output", output).Err(err).Str("duration", formatDuration(time.Since(start))).CallerSkipFrame(1).Send()
 
 	return output, err
 }

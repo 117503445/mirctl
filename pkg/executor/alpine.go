@@ -14,15 +14,13 @@ type alpineExecutor struct {
 }
 
 func (e *alpineExecutor) PreCheck() bool {
-	log.Info().Msg("alpine PreCheck")
-
 	return true
 }
 
 func (e *alpineExecutor) Run() error {
-	log.Info().Msg("alpine Run")
+	fileRelease := "/etc/os-release"
 
-	release, err := goutils.ReadText("/etc/os-release")
+	release, err := goutils.ReadText(fileRelease)
 	if err != nil {
 		log.Error().Err(err).Msg("read /etc/os-release error")
 		return err
@@ -52,7 +50,7 @@ func (e *alpineExecutor) Run() error {
 		return nil
 	}
 	// 3.21.3
-	log.Debug().Str("ver", ver).Send()
+	log.Debug().Str("ver", ver).Str("fileRelease", fileRelease).Str("content", release).Msg("read alpine version")
 
 	// 3.21.3 -> v3.21
 	ver = "v" + strings.Join(strings.Split(ver, ".")[:2], ".")
@@ -68,7 +66,10 @@ func (e *alpineExecutor) Run() error {
 	}
 	log.Debug().Str("content", content).Send()
 
-	err = goutils.CopyFile("/etc/apk/repositories", "/etc/apk/repositories"+goutils.TimeStrMilliSec()+".bak")
+	src := "/etc/apk/repositories"
+	dst := src + "." + goutils.TimeStrMilliSec() + ".bak"
+	log.Debug().Str("src", src).Str("dst", dst).Msg("backup")
+	err = goutils.CopyFile(src, dst)
 	if err != nil {
 		log.Error().Err(err).Msg("backup /etc/apk/repositories error")
 		return err
