@@ -4,6 +4,8 @@ go 1.23.3
 
 require (
 	github.com/117503445/goutils v0.0.0-20250223141210-85d4eef0d3a2
+	github.com/BurntSushi/toml v1.4.0
+	github.com/Masterminds/semver/v3 v3.3.1
 	github.com/alecthomas/kong v1.8.1
 	github.com/rs/zerolog v1.33.0
 )

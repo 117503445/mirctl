@@ -5,7 +5,7 @@ tasks:
     desc: "The default task" 
     cmds:
       - clear
-      - task: test-go
+      - task: test-rust
 
   run:
     cmds:
@@ -13,6 +13,7 @@ tasks:
 
   build:
     cmds:
+      - go mod tidy
       - CGO_ENABLED=0 go build .
   
   test-alpine:
@@ -42,3 +43,31 @@ tasks:
     cmds:
       - docker build -t test-arch -f ./tests/arch/Dockerfile .
       - docker run -it --rm test-arch mirctl --repos arch
+
+  test-npm:
+    deps:
+      - build
+    cmds:
+      - docker build -t test-npm -f ./tests/npm/Dockerfile .
+      - docker run -it --rm test-npm mirctl --repos npm
+
+  test-debian:
+    deps:
+      - build
+    cmds:
+      - docker build -t test-debian -f ./tests/debian/Dockerfile .
+      - docker run -it --rm test-debian mirctl --repos debian
+
+  test-ubuntu:
+    deps:
+      - build
+    cmds:
+      - docker build -t test-ubuntu -f ./tests/ubuntu/Dockerfile .
+      - docker run -it --rm test-ubuntu mirctl --repos ubuntu
+
+  test-rust:
+    deps:
+      - build
+    cmds:
+      - docker build -t test-rust -f ./tests/rust/Dockerfile .
+      - docker run -it --rm test-rust mirctl --repos rust
