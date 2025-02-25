@@ -14,7 +14,7 @@ type pipExecutor struct {
 
 func (e *pipExecutor) PreCheck() bool {
 
-	return true
+	return utils.CommandExists("pip")
 }
 
 func (e *pipExecutor) Run() error {

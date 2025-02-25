@@ -7,10 +7,18 @@ import (
 	"github.com/rs/zerolog/log"
 )
 
+var readReleaseResult map[string]string
+var readReleaseErr error
+
 func ReadRelease() (map[string]string, error) {
+	if readReleaseResult != nil || readReleaseErr != nil {
+		return readReleaseResult, readReleaseErr
+	}
+
 	content, err := goutils.ReadText("/etc/os-release")
 	if err != nil {
 		log.Error().Err(err).Msg("read /etc/os-release error")
+		readReleaseErr = err
 		return nil, err
 	}
 	log.Debug().CallerSkipFrame(1).Str("content", content).Msg("read /etc/os-release")
@@ -26,6 +34,7 @@ func ReadRelease() (map[string]string, error) {
 		}
 	}
 
+	readReleaseResult = r
 	return r, nil
 }
 

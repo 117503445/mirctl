@@ -28,49 +28,57 @@ tasks:
       - build
     cmds:
       - docker build -t test-pip -f ./tests/pip/Dockerfile .
+      - docker run -it --rm test-pip mirctl --repos pip
       - docker run -it --rm test-pip mirctl --repos pip,alpine
+      - docker run -it --rm test-pip mirctl
 
   test-go:
     deps:
       - build
     cmds:
       - docker build -t test-go -f ./tests/go/Dockerfile .
-      - docker run -it --rm test-go mirctl --repos go
+      # - docker run -it --rm test-go mirctl --repos go
+      - docker run -it --rm test-go mirctl
 
   test-arch:
     deps:
       - build
     cmds:
       - docker build -t test-arch -f ./tests/arch/Dockerfile .
-      - docker run -it --rm test-arch mirctl --repos arch
+      # - docker run -it --rm test-arch mirctl --repos arch
+      - docker run -it --rm test-arch mirctl
 
   test-npm:
     deps:
       - build
     cmds:
       - docker build -t test-npm -f ./tests/npm/Dockerfile .
-      - docker run -it --rm test-npm mirctl --repos npm
+      # - docker run -it --rm test-npm mirctl --repos npm
+      - docker run -it --rm test-npm mirctl
 
   test-debian:
     deps:
       - build
     cmds:
       - docker build -t test-debian -f ./tests/debian/Dockerfile .
-      - docker run -it --rm test-debian mirctl --repos debian
+      # - docker run -it --rm test-debian mirctl --repos debian
+      - docker run -it --rm test-debian mirctl
 
   test-ubuntu:
     deps:
       - build
     cmds:
       - docker build -t test-ubuntu -f ./tests/ubuntu/Dockerfile .
-      - docker run -it --rm test-ubuntu mirctl --repos ubuntu
+      # - docker run -it --rm test-ubuntu mirctl --repos ubuntu
+      - docker run -it --rm test-ubuntu mirctl
 
   test-rust:
     deps:
       - build
     cmds:
       - docker build -t test-rust -f ./tests/rust/Dockerfile .
-      - docker run -it --rm test-rust mirctl --repos rust
+      # - docker run -it --rm test-rust mirctl --repos rust
+      - docker run -it --rm test-rust mirctl
   
   packages:
     cmds:

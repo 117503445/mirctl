@@ -15,16 +15,6 @@ type debianExecutor struct {
 }
 
 func (e *debianExecutor) PreCheck() bool {
-
-	return true
-}
-
-func (e *debianExecutor) Run() error {
-	release, err := utils.ReadRelease()
-	if err != nil {
-		return err
-	}
-
 	// PRETTY_NAME="Debian GNU/Linux 12 (bookworm)"
 	// NAME="Debian GNU/Linux"
 	// VERSION_ID="12"
@@ -34,6 +24,19 @@ func (e *debianExecutor) Run() error {
 	// HOME_URL="https://www.debian.org/"
 	// SUPPORT_URL="https://www.debian.org/support"
 	// BUG_REPORT_URL="https://bugs.debian.org/"
+	release, err := utils.ReadRelease()
+	if err != nil {
+		return false
+	}
+
+	return strings.Contains(release["NAME"], "Debian")
+}
+
+func (e *debianExecutor) Run() error {
+	release, err := utils.ReadRelease()
+	if err != nil {
+		return err
+	}
 
 	codename, ok := release["VERSION_CODENAME"]
 	if !ok {

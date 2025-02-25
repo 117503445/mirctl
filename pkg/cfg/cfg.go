@@ -8,7 +8,7 @@ import (
 
 var Cfg struct {
 	Mirrors []string `help:"mirror names" default:"ustc"`
-	Repos   []string `help:"repos" default:"alpine"`
+	Repos   []string `help:"repos" default:"AUTO"`
 }
 
 func Load() {

@@ -14,17 +14,21 @@ type alpineExecutor struct {
 }
 
 func (e *alpineExecutor) PreCheck() bool {
-	return true
-}
-
-func (e *alpineExecutor) Run() error {
-
 	// NAME="Alpine Linux"
 	// ID=alpine
 	// VERSION_ID=3.21.3
 	// PRETTY_NAME="Alpine Linux v3.21"
 	// HOME_URL="https://alpinelinux.org/"
 	// BUG_REPORT_URL="https://gitlab.alpinelinux.org/alpine/aports/-/issues"
+	release, err := utils.ReadRelease()
+	if err != nil {
+		return false
+	}
+
+	return strings.Contains(release["NAME"], "Alpine")
+}
+
+func (e *alpineExecutor) Run() error {
 	release, err := utils.ReadRelease()
 	if err != nil {
 		return err

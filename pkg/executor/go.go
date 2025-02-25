@@ -14,7 +14,7 @@ type goExecutor struct {
 
 func (e *goExecutor) PreCheck() bool {
 
-	return true
+	return utils.CommandExists("go")
 }
 
 func (e *goExecutor) Run() error {

@@ -19,7 +19,7 @@ type rustExecutor struct {
 
 func (e *rustExecutor) PreCheck() bool {
 
-	return true
+	return utils.CommandExists("cargo")
 }
 
 func (e *rustExecutor) Run() error {

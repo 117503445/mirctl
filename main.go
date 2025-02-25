@@ -11,7 +11,13 @@ func main() {
 	goutils.InitZeroLog()
 	cfg.Load()
 
-	for _, repo := range cfg.Cfg.Repos {
+	repos := cfg.Cfg.Repos
+	if len(repos) == 1 && repos[0] == "AUTO" {
+		repos = executor.PreCheck()
+		log.Info().Strs("repos", repos).Msg("auto detect")
+	}
+
+	for _, repo := range repos {
 		log.Info().Str("repo", repo).Send()
 		executor.Run(repo, cfg.Cfg.Mirrors[0])
 	}

@@ -14,7 +14,7 @@ type npmExecutor struct {
 
 func (e *npmExecutor) PreCheck() bool {
 
-	return true
+	return utils.CommandExists("npm")
 }
 
 func (e *npmExecutor) Run() error {

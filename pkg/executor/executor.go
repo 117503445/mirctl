@@ -20,6 +20,16 @@ type Executor interface {
 	Run() error
 }
 
+func PreCheck() (repos []string) {
+	repos = []string{}
+	for name, e := range executors {
+		if e.PreCheck() {
+			repos = append(repos, name)
+		}
+	}
+	return
+}
+
 func Run(repo string, mirror string) error {
 	supports := []string{}
 	for name := range executors {

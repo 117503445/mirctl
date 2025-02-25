@@ -14,16 +14,6 @@ type ubuntuExecutor struct {
 }
 
 func (e *ubuntuExecutor) PreCheck() bool {
-
-	return true
-}
-
-func (e *ubuntuExecutor) Run() error {
-
-	release, err := utils.ReadRelease()
-	if err != nil {
-		return err
-	}
 	// PRETTY_NAME="Ubuntu 24.04.1 LTS"
 	// NAME="Ubuntu"
 	// VERSION_ID="24.04"
@@ -37,6 +27,20 @@ func (e *ubuntuExecutor) Run() error {
 	// PRIVACY_POLICY_URL="https://www.ubuntu.com/legal/terms-and-policies/privacy-policy"
 	// UBUNTU_CODENAME=noble
 	// LOGO=ubuntu-logo
+	release, err := utils.ReadRelease()
+	if err != nil {
+		return false
+	}
+
+	return strings.Contains(release["NAME"], "Ubuntu")
+}
+
+func (e *ubuntuExecutor) Run() error {
+	release, err := utils.ReadRelease()
+	if err != nil {
+		return err
+	}
+
 	codename, ok := release["UBUNTU_CODENAME"]
 	if !ok {
 		log.Error().Msg("ubuntu codename not found")
