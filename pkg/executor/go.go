@@ -21,7 +21,7 @@ func (e *goExecutor) Run() error {
 	cmd := utils.ExecGetCmd(strings.Split("go env -w GOPROXY=https://goproxy.cn,direct", " "))
 	_, err := utils.RunCmdWithLog(cmd)
 	if err != nil {
-		log.Warn().Err(err).Msg("apk update error")
+		log.Warn().Err(err).Msg("setup goproxy error")
 		return err
 	}
 

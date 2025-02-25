@@ -35,3 +35,10 @@ tasks:
     cmds:
       - docker build -t test-go -f ./tests/go/Dockerfile .
       - docker run -it --rm test-go mirctl --repos go
+
+  test-arch:
+    deps:
+      - build
+    cmds:
+      - docker build -t test-arch -f ./tests/arch/Dockerfile .
+      - docker run -it --rm test-arch mirctl --repos arch
