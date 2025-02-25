@@ -2,6 +2,7 @@ package executor
 
 var executors = map[string]Executor{
 	"alpine": &alpineExecutor{},
+	"pip":    &pipExecutor{},
 }
 
 type Executor interface {

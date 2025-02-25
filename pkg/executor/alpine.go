@@ -13,13 +13,13 @@ import (
 type alpineExecutor struct {
 }
 
-func (a *alpineExecutor) PreCheck() bool {
+func (e *alpineExecutor) PreCheck() bool {
 	log.Info().Msg("alpine PreCheck")
 
 	return true
 }
 
-func (a *alpineExecutor) Run() error {
+func (e *alpineExecutor) Run() error {
 	log.Info().Msg("alpine Run")
 
 	release, err := goutils.ReadText("/etc/os-release")

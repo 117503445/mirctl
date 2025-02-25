@@ -11,6 +11,8 @@ func main() {
 	goutils.InitZeroLog()
 	cfg.Load()
 
-	log.Debug().Msg("hello")
-	executor.Run(cfg.Cfg.Repos[0], cfg.Cfg.Mirrors[0])
+	for _, repo := range cfg.Cfg.Repos {
+		log.Debug().Str("repo", repo).Send()
+		executor.Run(repo, cfg.Cfg.Mirrors[0])
+	}
 }
