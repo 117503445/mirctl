@@ -25,4 +25,6 @@ go.work.sum
 .env
 
 compose.override.yaml
+mirctl# Added by goreleaser init:
+dist/
 mirctl
