@@ -5,7 +5,7 @@ tasks:
     desc: "The default task" 
     cmds:
       - clear
-      - task: test-pip
+      - task: test-go
 
   run:
     cmds:
@@ -28,3 +28,10 @@ tasks:
     cmds:
       - docker build -t test-pip -f ./tests/pip/Dockerfile .
       - docker run -it --rm test-pip mirctl --repos pip,alpine
+
+  test-go:
+    deps:
+      - build
+    cmds:
+      - docker build -t test-go -f ./tests/go/Dockerfile .
+      - docker run -it --rm test-go mirctl --repos go
