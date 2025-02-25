@@ -71,3 +71,7 @@ tasks:
     cmds:
       - docker build -t test-rust -f ./tests/rust/Dockerfile .
       - docker run -it --rm test-rust mirctl --repos rust
+  
+  packages:
+    cmds:
+      - goreleaser release --snapshot --clean
